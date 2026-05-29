@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "TabAlign - Premium Tab Grouping",
   "version": "1.0.0",
-  "description": "An elegant, premium Chrome extension that automatically and intelligently groups tabs by domain with dynamic color coding, statistics, and customization.",
+  "description": "Automatically groups active browser tabs by domain with a unified 'Misc' fallback group and persistent visual themes.",
   "permissions": [
     "tabs",
     "tabGroups",
