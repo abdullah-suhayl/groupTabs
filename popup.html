@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TabAlign Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-wrapper">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="6" fill="url(#logo-grad)"/>
+            <rect x="5" y="5" width="2" height="14" rx="1" fill="white" fill-opacity="0.8"/>
+            <rect x="9" y="5" width="10" height="4" rx="1" fill="white"/>
+            <rect x="9" y="10" width="8" height="4" rx="1" fill="white" fill-opacity="0.7"/>
+            <rect x="9" y="15" width="6" height="4" rx="1" fill="white" fill-opacity="0.5"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#4F46E5"/>
+                <stop offset="1" stop-color="#EC4899"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>TabAlign</h1>
+          <span class="badge">V1.0</span>
+        </div>
+      </div>
+      
+      <!-- Header Controls: Theme + Auto Toggle -->
+      <div class="header-controls">
+        <button id="btn-theme-toggle" class="btn-theme-ab" title="Cycle UI Themes: Light, Dark, Brutalist, Glass">Theme: A</button>
+        <div class="auto-group-control" title="Automatically group tabs when they open or change">
+          <span class="toggle-label">Auto</span>
+          <label class="switch">
+            <input type="checkbox" id="auto-group-toggle">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-content">
+      
+      <!-- Quick Action Panel -->
+      <section class="action-panel card">
+        <button id="btn-group-now" class="btn btn-primary" title="Group all current tabs by domain name">
+          <span class="btn-text">Align Tabs</span>
+          <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          <div class="btn-glow"></div>
+        </button>
+        <button id="btn-ungroup-all" class="btn btn-secondary" title="Remove all tab groups and restore simple tabs">
+          <span>Ungroup All</span>
+        </button>
+      </section>
+
+      <!-- Stats Grid -->
+      <section class="stats-grid">
+        <div class="stat-card card">
+          <div class="stat-icon-wrapper blue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3h18v18H3Z"/>
+              <path d="M21 9H3M21 15H3M12 3v18"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value" id="stat-groups">0</span>
+            <span class="stat-label">Active Groups</span>
+          </div>
+        </div>
+
+        <div class="stat-card card">
+          <div class="stat-icon-wrapper pink">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="m12 6-6 6h12Z"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value" id="stat-efficiency">0%</span>
+            <span class="stat-label">Clutter Reduction</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tabs & Groups Explorer -->
+      <section class="explorer card">
+        <div class="explorer-header">
+          <h2>Active Groups</h2>
+          <span class="tab-count-total" id="total-tabs-badge">0 Tabs</span>
+        </div>
+        
+        <div class="groups-list" id="groups-list">
+          <!-- Dynamically populated -->
+          <div class="empty-state">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18"/>
+            </svg>
+            <p>No tab groups active in this window.</p>
+            <span class="subtext">Click "Align Tabs" above to clear the clutter!</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Panel Accordion -->
+      <section class="settings-accordion card">
+        <div class="settings-trigger" id="settings-trigger">
+          <div class="trigger-left">
+            <svg class="gear-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            <span>Preference Panel</span>
+          </div>
+          <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+
+        <div class="settings-content hidden" id="settings-content">
+          <div class="setting-item">
+            <div class="setting-info">
+              <label for="min-tabs-slider" class="setting-title">Minimum Tabs Per Group</label>
+              <p class="setting-desc">Required quantity of a single domain before grouping.</p>
+            </div>
+            <div class="slider-wrapper">
+              <input type="range" id="min-tabs-slider" min="1" max="10" value="2">
+              <span class="slider-value" id="min-tabs-value">2</span>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <label for="toggle-collapse-inactive" class="setting-title">Collapse Inactive Groups</label>
+              <p class="setting-desc">Keep other groups closed to minimize horizontal scroll space.</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-collapse-inactive">
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div class="setting-item vertical">
+            <div class="setting-info">
+              <label for="ignored-domains-input" class="setting-title">Ignored Domains</label>
+              <p class="setting-desc">Domains listed here will never be grouped (comma-separated).</p>
+            </div>
+            <textarea id="ignored-domains-input" placeholder="e.g. localhost, google.com, drive.google.com"></textarea>
+          </div>
+
+          <button id="btn-save-settings" class="btn btn-tertiary">Save Preferences</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer"></footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+.DS_Store
+*.log
+web-ext-artifacts/
+.wsl.localhost/
+.system_generated/
+*tmp-web-ext*
